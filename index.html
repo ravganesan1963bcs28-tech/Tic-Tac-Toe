@@ -1,0 +1,170 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tic-Tac-Toe</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="dark">
+  <main class="layout">
+ 
+    <header class="titlebar">
+      <p class="kicker">A classic, built for the desk</p>
+      <h1>Tic-Tac-Toe</h1>
+    </header>
+ 
+    <div class="workspace">
+ 
+      <!-- Game panel -->
+      <section class="board-panel" aria-labelledby="game-title">
+        <h2 id="game-title" class="sr-only">Game board</h2>
+ 
+        <p id="game-message" class="game-message" aria-live="polite">Player X's turn</p>
+ 
+        <div id="game-board" class="game-board" role="grid" aria-label="Tic-Tac-Toe board">
+          <button class="cell" type="button" role="gridcell" tabindex="0" aria-label="Row 1, column 1, empty" data-index="0"></button>
+          <button class="cell" type="button" role="gridcell" tabindex="-1" aria-label="Row 1, column 2, empty" data-index="1"></button>
+          <button class="cell" type="button" role="gridcell" tabindex="-1" aria-label="Row 1, column 3, empty" data-index="2"></button>
+          <button class="cell" type="button" role="gridcell" tabindex="-1" aria-label="Row 2, column 1, empty" data-index="3"></button>
+          <button class="cell" type="button" role="gridcell" tabindex="-1" aria-label="Row 2, column 2, empty" data-index="4"></button>
+          <button class="cell" type="button" role="gridcell" tabindex="-1" aria-label="Row 2, column 3, empty" data-index="5"></button>
+          <button class="cell" type="button" role="gridcell" tabindex="-1" aria-label="Row 3, column 1, empty" data-index="6"></button>
+          <button class="cell" type="button" role="gridcell" tabindex="-1" aria-label="Row 3, column 2, empty" data-index="7"></button>
+          <button class="cell" type="button" role="gridcell" tabindex="-1" aria-label="Row 3, column 3, empty" data-index="8"></button>
+        </div>
+ 
+        <p class="hint">Click a square, or use the arrow keys and Enter.</p>
+ 
+        <div class="board-actions">
+          <button id="undo-button" class="ghost-button" type="button">Undo move</button>
+          <button id="restart-button" class="primary-button" type="button">New round</button>
+        </div>
+      </section>
+ 
+      <!-- Control / info panel -->
+      <aside class="control-panel" aria-label="Game settings and score">
+ 
+        <div class="control-group" role="radiogroup" aria-label="Game mode">
+          <span class="control-label">Opponent</span>
+          <div class="segmented">
+            <button class="segmented-option is-active" type="button" data-mode="pvp" role="radio" aria-checked="true">Two players</button>
+            <button class="segmented-option" type="button" data-mode="cpu" role="radio" aria-checked="false">Computer</button>
+          </div>
+        </div>
+ 
+        <div class="control-group" id="difficulty-group" role="radiogroup" aria-label="Computer difficulty" hidden>
+          <span class="control-label">Difficulty</span>
+          <div class="segmented">
+            <button class="segmented-option" type="button" data-difficulty="easy" role="radio" aria-checked="false">Easy</button>
+            <button class="segmented-option is-active" type="button" data-difficulty="hard" role="radio" aria-checked="true">Unbeatable</button>
+          </div>
+        </div>
+ 
+        <div class="control-group toggle-row">
+          <label class="toggle" for="sound-toggle">
+            <input type="checkbox" id="sound-toggle" checked>
+            <span>Sound effects</span>
+          </label>
+          <label class="toggle" for="theme-toggle">
+            <input type="checkbox" id="theme-toggle">
+            <span>Light theme</span>
+          </label>
+        </div>
+ 
+        <div class="control-group">
+          <span class="control-label">Score</span>
+          <div class="scoreboard" aria-label="Session scores">
+            <div class="score-player score-x">
+              <span id="x-score-label">Player X</span>
+              <strong id="x-score">0</strong>
+            </div>
+            <div class="score-player score-draw">
+              <span>Draws</span>
+              <strong id="draw-score">0</strong>
+            </div>
+            <div class="score-player score-o">
+              <span id="o-score-label">Player O</span>
+              <strong id="o-score">0</strong>
+            </div>
+          </div>
+          <button id="reset-match-button" class="ghost-button full-width" type="button">Reset match score</button>
+        </div>
+
+        <div class="control-group leaderboard-group">
+          <span class="control-label">Leaderboard</span>
+          <div id="leaderboard" class="leaderboard" aria-label="Player leaderboard">
+            <article id="x-leaderboard-entry" class="leaderboard-entry leaderboard-x">
+              <div class="leaderboard-player">
+                <span class="leaderboard-rank">01</span>
+                <strong id="x-leaderboard-name">Player X</strong>
+              </div>
+              <div class="leaderboard-stats">
+                <span><strong id="x-leaderboard-wins">0</strong> wins</span>
+                <span class="coin-count">● <strong id="x-coins">0</strong> coins</span>
+              </div>
+            </article>
+            <article id="o-leaderboard-entry" class="leaderboard-entry leaderboard-o">
+              <div class="leaderboard-player">
+                <span class="leaderboard-rank">02</span>
+                <strong id="o-leaderboard-name">Player O</strong>
+              </div>
+              <div class="leaderboard-stats">
+                <span><strong id="o-leaderboard-wins">0</strong> wins</span>
+                <span class="coin-count">● <strong id="o-coins">0</strong> coins</span>
+              </div>
+            </article>
+          </div>
+          <p class="coin-hint">Each player win earns 50 coins.</p>
+        </div>
+ 
+      </aside>
+ 
+    </div>
+  </main>
+
+  <dialog id="result-dialog" class="result-dialog" aria-labelledby="result-title">
+    <div class="dialog-icon" aria-hidden="true">✦</div>
+    <p class="dialog-kicker">Round complete</p>
+    <h2 id="result-title">Player X wins!</h2>
+    <p id="result-text">Great move. Ready for another round?</p>
+    <div class="dialog-actions">
+      <button id="dialog-close-button" class="ghost-button" type="button">View board</button>
+      <button id="dialog-play-again-button" class="primary-button" type="button">Play again</button>
+    </div>
+  </dialog>
+
+  <dialog id="game-mode-dialog" class="result-dialog game-mode-dialog" aria-labelledby="game-mode-title">
+    <div class="dialog-icon" aria-hidden="true">⌘</div>
+    <p class="dialog-kicker">Welcome to Tic-Tac-Toe</p>
+    <h2 id="game-mode-title">Choose your game</h2>
+    <p>Would you like to play with a friend or challenge the computer?</p>
+    <div class="mode-choice-actions">
+      <button class="ghost-button" type="button" data-start-mode="cpu">Play computer</button>
+      <button class="primary-button" type="button" data-start-mode="pvp">Two players</button>
+    </div>
+  </dialog>
+
+  <dialog id="player-name-dialog" class="result-dialog player-name-dialog" aria-labelledby="player-name-title">
+    <div class="dialog-icon" aria-hidden="true">♟</div>
+    <p class="dialog-kicker">Two-player game</p>
+    <h2 id="player-name-title">Who is playing?</h2>
+    <p>Enter names before starting the round.</p>
+    <form id="player-name-form" class="name-form">
+      <label for="player-x-name">Player X</label>
+      <input id="player-x-name" name="player-x-name" type="text" maxlength="18" placeholder="Enter Player X's name" required>
+      <label for="player-o-name">Player O</label>
+      <input id="player-o-name" name="player-o-name" type="text" maxlength="18" placeholder="Enter Player O's name" required>
+      <button class="primary-button" type="submit">Start game</button>
+    </form>
+  </dialog>
+ 
+  <script src="script.js"></script>
+</body>
+</html>
+ 
